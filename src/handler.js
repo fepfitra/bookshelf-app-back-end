@@ -11,6 +11,14 @@ const addBookHandler = (request, h) => {
     }
     const insertedAt = new Date().toISOString();
     const updatedAt = insertedAt;
+
+    //newBook
+    const newBook = {
+        id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt
+    };
+    
+    //push newBook to books
+    books.push(newBook);
 }
 
 module.exports = { addBookHandler };
