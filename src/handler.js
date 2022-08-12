@@ -39,6 +39,29 @@ const addBookHandler = (request, h) => {
 
     //push newBook to books
     books.push(newBook);
+
+    //response if success or not
+    const isSuccess = books.filter(book => book.id === id).length > 0;
+
+    if (isSuccess){
+        const response = h.response({
+            status: 'success',
+            message: 'Buku berhasil ditambahkan',
+            data: {
+                bookId: id,
+            },
+        });
+        response.code(201);
+        return response;
+    }
+
+    const response = h.response({
+        status: 'fail',
+        message: 'Buku gagal ditambahkan',
+    });
+    response.harder('Access-Control-Allow-Origin', '*');
+    response.code(500);
+    return response;
 }
 
 module.exports = { addBookHandler };
