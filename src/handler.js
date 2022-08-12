@@ -174,4 +174,29 @@ const editBookByIdHandler = (request, h) => {
     return response;
 }
 
-module.exports = { addBookHandler, getAllBooksHandler, getBookByIdHandler, editBookByIdHandler };
+const deleteBookByIdHandler = (request, h) => {
+    const { bookId } = request.params;
+    const book = books.filter((book) => book.id === bookId)[0];
+
+    if (book !== undefined){
+        books.splice(books.indexOf(book), 1);
+        const response = h.response({
+            status: 'success',
+            message: 'Buku berhasil dihapus',
+            data: {
+                bookId: bookId,
+            },
+        });
+        response.code(200);
+        return response;
+    }
+
+    const response = h.response({
+        status: 'fail',
+        message: 'Buku gagal dihapus. Id tidak ditemukan',
+    });
+    response.code(404);
+    return response;
+}
+
+module.exports = { addBookHandler, getAllBooksHandler, getBookByIdHandler, editBookByIdHandler, deleteBookByIdHandler };
