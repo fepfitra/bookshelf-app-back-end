@@ -1,4 +1,4 @@
-const nanoid = require('nanoid');
+const { nanoid } = require('nanoid');
 const books = require('./books');
 
 const addBookHandler = (request, h) => {
@@ -8,7 +8,7 @@ const addBookHandler = (request, h) => {
     //additional strucutre
     //error responses
     //if name is empty
-    if (bame === undefined){
+    if (name === undefined){
         const response = h.response({
             status: 'fail',
             message: 'Gagal menambahkan buku. Mohon isi nama buku',
@@ -41,7 +41,7 @@ const addBookHandler = (request, h) => {
     books.push(newBook);
 
     //response if success or not
-    const isSuccess = books.filter(book => book.id === id).length > 0;
+    const isSuccess = books.filter((book) => book.id === id).length > 0;
 
     if (isSuccess){
         const response = h.response({
