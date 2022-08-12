@@ -81,7 +81,7 @@ const getAllBooksHandler = (request, h) => {
             books: filteredBooks.map((book) => ({
                 id: book.id,
                 name: book.name,
-                year: book.year,
+                publisher: book.publisher,
             })),
         },
     });
