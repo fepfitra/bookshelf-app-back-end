@@ -36,7 +36,18 @@ const addBookHandler = (request, h) => {
 
   // newBook
   const newBook = {
-    id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt,
+    id,
+    name,
+    year,
+    author,
+    summary,
+    publisher,
+    pageCount,
+    readPage,
+    finished,
+    reading,
+    insertedAt,
+    updatedAt,
   };
 
   // push newBook to books
@@ -71,7 +82,8 @@ const getAllBooksHandler = (request, h) => {
 
   let filteredBooks = books;
   if (name !== undefined) {
-    filteredBooks = filteredBooks.filter((book) => book.name.toLowerCase().includes(name.toLowerCase()));
+    const bookfilter = (book) => book.name.toLowerCase().includes(name.toLowerCase());
+    filteredBooks = filteredBooks.filter(bookfilter);
   } else if (reading !== undefined) {
     filteredBooks = filteredBooks.filter((book) => book.reading === !!Number(reading));
   } else if (finished !== undefined) {
@@ -94,7 +106,7 @@ const getAllBooksHandler = (request, h) => {
 
 const getBookByIdHandler = (request, h) => {
   const { bookId } = request.params;
-  const book = books.filter((book) => book.id === bookId)[0];
+  const book = books.filter((b) => b.id === bookId)[0];
 
   if (book !== undefined) {
     const response = h.response({
@@ -117,7 +129,7 @@ const getBookByIdHandler = (request, h) => {
 
 const editBookByIdHandler = (request, h) => {
   const { bookId } = request.params;
-  const book = books.filter((book) => book.id === bookId)[0];
+  const book = books.filter((b) => b.id === bookId)[0];
 
   if (book !== undefined) {
     const {
@@ -179,7 +191,7 @@ const editBookByIdHandler = (request, h) => {
 
 const deleteBookByIdHandler = (request, h) => {
   const { bookId } = request.params;
-  const book = books.filter((book) => book.id === bookId)[0];
+  const book = books.filter((b) => b.id === bookId)[0];
 
   if (book !== undefined) {
     books.splice(books.indexOf(book), 1);
@@ -203,5 +215,9 @@ const deleteBookByIdHandler = (request, h) => {
 };
 
 module.exports = {
-  addBookHandler, getAllBooksHandler, getBookByIdHandler, editBookByIdHandler, deleteBookByIdHandler,
+  addBookHandler,
+  getAllBooksHandler,
+  getBookByIdHandler,
+  editBookByIdHandler,
+  deleteBookByIdHandler,
 };
